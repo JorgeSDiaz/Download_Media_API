@@ -12,5 +12,9 @@ def health_check():
     return {"status": "ok"}
 
 @app.get("/qualities", tags=["Download"])
-def get_qualities(url: str) -> list:
-    return download_service.list_qualities(url)
+def get_qualities(url: str) -> dict:
+    return {"qualities": download_service.list_qualities(url)}
+
+@app.post("/download/video", tags=["Download"])
+def download_video(url: str, resolution: str, fps: int):
+    download_service.download_video(url, resolution, fps)
